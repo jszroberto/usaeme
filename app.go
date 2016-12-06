@@ -1,9 +1,8 @@
 package main
 
 import (
-	"errors"
 	"fmt"
-	"github.com/cloudfoundry-community/go-cfenv"
+
 	"html/template"
 	"log"
 	"net/http"
@@ -26,19 +25,6 @@ func helloworld(w http.ResponseWriter, req *http.Request) {
 	}
 	fmt.Printf("Stablished connection with Database")
 	index.Execute(w, nil)
-}
-
-func connectDB() (*DB, error) {
-	appEnv, err := cfenv.Current()
-	if err != nil {
-		return &DB{}, err
-	}
-	if redis_services, ok := appEnv.Services["compose-for-redis"]; ok {
-		db := NewDatabase(redis_services[0].Credentials["uri"].(string))
-		return db, db.Ping()
-	} else {
-		return &DB{}, errors.New("compose-for-redis service not bound to the app")
-	}
 }
 
 func main() {
