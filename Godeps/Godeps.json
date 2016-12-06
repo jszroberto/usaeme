@@ -1,5 +1,6 @@
 {
-	"ImportPath": "gohelloworld",
-	"GoVersion": "go1.4.3",
+	"ImportPath": ".",
+	"GoVersion": "go1.7",
+	"GodepVersion": "v74",
 	"Deps": []
 }
