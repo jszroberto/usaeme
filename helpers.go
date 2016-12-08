@@ -52,3 +52,7 @@ func ReadLocalConfig() (LocalConfig, error) {
 	err = yaml.Unmarshal(yamlFile, &config)
 	return config, err
 }
+
+func NewLogger() zap.Logger {
+	return zap.New(zap.NewJSONEncoder(zap.NoTime()))
+}
