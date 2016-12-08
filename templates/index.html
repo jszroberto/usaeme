@@ -1,14 +1,29 @@
 {{ define "title" }}Go Starter Application{{ end }}
 {{ define "content"}}
-<table>
-	<tr>
-		<td style='width: 30%;'>
-			<img class = 'newappIcon' src='/static/images/newapp-icon.png'>
-		</td>
-		<td>
-			<h1 id="message">Hello World!</h1>
-			<p class='description'></p> Thanks for creating a <span class="blue">Go Starter Application</span>.
-		</td>
-	</tr>
-</table>
+<ul class="list-group">
+	{{ range $key, $word := . }}
+	<li class="list-group-item">
+		<span class="badge">{{ $word.TimesUsed }}</span>
+		<p>
+
+
+		<button type="button" class="btn btn-primary  btn-circle btn-lg text-center" aria-label="Left Align">
+  		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+		</button>
+		<span style="font-size:16px;" class="text-center">{{ $word.Name }} </span>
+		<button type="button" class="btn btn-primary  btn-circle btn-lg" aria-label="Left Align">
+  		<span class="glyphicon glyphicon-minus text-center" aria-hidden="true"></span>
+		</button>
+		</p>
+
+
+
+		<div class="progress">
+			<div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+		    <span class="sr-only">60% Complete</span>
+		  </div>
+		</div>
+	</li>
+	{{ end }}
+</ul>
 {{ end }}

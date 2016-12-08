@@ -14,7 +14,13 @@ var index = template.Must(template.ParseFiles(
 ))
 
 func Index(w http.ResponseWriter, req *http.Request) {
-	index.Execute(w, nil)
+	var words []Word
+
+	if err := get("http://localhost:8080/word", &words); err != nil {
+		http.Error(w, "Can't load the words:"+err.Error(), 500)
+	}
+
+	index.Execute(w, words)
 }
 
 func GetWords(w http.ResponseWriter, req *http.Request) {
@@ -58,6 +64,7 @@ func GetMastered(w http.ResponseWriter, req *http.Request) {
 	db, err := connectDB(log)
 	if err != nil {
 		log.Error("Can't reach database", zap.Error(err))
+		http.Error(w, "Can't reach database:"+err.Error(), 500)
 	}
 
 	words, err := db.GetMastered()

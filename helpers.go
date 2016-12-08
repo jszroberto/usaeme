@@ -1,11 +1,13 @@
 package main
 
 import (
+	"encoding/json"
 	"errors"
 	"github.com/cloudfoundry-community/go-cfenv"
 	"github.com/uber-go/zap"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
+	"net/http"
 	"path/filepath"
 )
 
@@ -55,4 +57,13 @@ func ReadLocalConfig() (Config, error) {
 
 func NewLogger() zap.Logger {
 	return zap.New(zap.NewJSONEncoder(zap.NoTime()))
+}
+
+func get(url string, target interface{}) error {
+	r, err := http.Get(url)
+	if err != nil {
+		return err
+	}
+	defer r.Body.Close()
+	return json.NewDecoder(r.Body).Decode(target)
 }
