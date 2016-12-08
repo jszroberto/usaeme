@@ -49,15 +49,45 @@ func (db *DB) IsAccessible() bool {
 	return db.Ping() == nil
 }
 
+func (db *DB) GetLearning() ([]Word, error) {
+	words, err := db.GetWords()
+
+	if err != nil {
+		return nil, err
+	}
+
+	learning := []Word{}
+
+	for _, word := range words {
+		if !word.IsMastered {
+			learning = append(learning, word)
+		}
+	}
+	return learning, nil
+}
+
+func (db *DB) GetMastered() ([]Word, error) {
+	words, err := db.GetWords()
+	if err != nil {
+		return nil, err
+	}
+	mastered := []Word{}
+
+	for _, word := range words {
+		if word.IsMastered {
+			mastered = append(mastered, word)
+		}
+	}
+	return mastered, nil
+}
+
 func (db *DB) GetWords() ([]Word, error) {
 	var result AllDocsResult
 	err := db.client.DB(DB_NAME).AllDocs(&result, couchdb.Options{"include_docs": true})
 	if err != nil {
 		return nil, err
 	}
-
 	db.log.Info("Get Words", zap.Int("size", len(result.Rows)))
-
 	var words []Word
 
 	for _, row := range result.Rows {
@@ -67,17 +97,13 @@ func (db *DB) GetWords() ([]Word, error) {
 }
 
 func (db *DB) GetWord(word string) (Word, error) {
-
-	var row Word
+	var doc Word
 	db.log.Info("Get Word", zap.String("name", word))
-
-	err := db.client.DB(DB_NAME).Get(word, &row, couchdb.Options{})
-	return row, err
+	err := db.client.DB(DB_NAME).Get(word, &doc, couchdb.Options{})
+	return doc, err
 }
 
 func (db *DB) SetWord(word Word) error {
-	// id := uuid.New()
-
 	db.log.Info("Set Word", zap.String("name", word.Name))
 	_, err := db.client.DB(DB_NAME).Put(word.Name, word, "")
 	return err

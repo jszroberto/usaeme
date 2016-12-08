@@ -34,12 +34,45 @@ func GetWords(w http.ResponseWriter, req *http.Request) {
 	json.NewEncoder(w).Encode(words)
 }
 
+func GetLearning(w http.ResponseWriter, req *http.Request) {
+
+	log := NewLogger()
+
+	db, err := connectDB(log)
+	if err != nil {
+		log.Error("Can't reach database", zap.Error(err))
+	}
+
+	words, err := db.GetLearning()
+	if err != nil {
+		log.Error("Can't get words", zap.Error(err))
+	}
+
+	json.NewEncoder(w).Encode(words)
+}
+
+func GetMastered(w http.ResponseWriter, req *http.Request) {
+
+	log := NewLogger()
+
+	db, err := connectDB(log)
+	if err != nil {
+		log.Error("Can't reach database", zap.Error(err))
+	}
+
+	words, err := db.GetMastered()
+	if err != nil {
+		log.Error("Can't get words", zap.Error(err))
+	}
+
+	json.NewEncoder(w).Encode(words)
+}
+
 func GetWord(w http.ResponseWriter, req *http.Request) {
 
 	log := NewLogger()
 
 	vars := mux.Vars(req)
-
 	wordID := vars["word"]
 
 	db, err := connectDB(log)
