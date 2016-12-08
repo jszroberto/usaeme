@@ -17,6 +17,6 @@ func main() {
 		port = DEFAULT_PORT
 	}
 
-	fmt.Println("Starting app on port" + port + "\n")
+	fmt.Println("Starting app on port: " + port + "\n")
 	http.ListenAndServe(":"+port, NewRouter())
 }

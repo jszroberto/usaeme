@@ -36,19 +36,19 @@ func connectDB(log zap.Logger) (*DB, error) {
 	return db, db.Ping()
 }
 
-func ReadLocalConfig() (LocalConfig, error) {
+func ReadLocalConfig() (Config, error) {
 
 	filename, err := filepath.Abs(LOCAL_CONFIG)
 	if err != nil {
-		return LocalConfig{}, err
+		return Config{}, err
 	}
 	yamlFile, err := ioutil.ReadFile(filename)
 
 	if err != nil {
-		return LocalConfig{}, err
+		return Config{}, err
 	}
 
-	var config LocalConfig
+	var config Config
 	err = yaml.Unmarshal(yamlFile, &config)
 	return config, err
 }

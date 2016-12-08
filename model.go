@@ -1,14 +1,16 @@
 package main
 
-type LocalConfig struct {
+type Config struct {
 	DBUri string `yaml:"db_uri"`
 }
 
 type Word struct {
-	Name       string
-	IsMastered bool
-	Frecuency  int
-	TimesUsed  int
-	NextUse    string
-	Deck       string
+	Name        string `json:"name"`
+	IsMastered  bool   `json:"is_mastered"`
+	Frecuency   int    `json:"frecuency"`
+	TimesUsed   int    `json:"times_used"`
+	NextUse     string `json:"next_use"`
+	Deck        string `json:"deck"`
+	Description string `json:"description"`
+	Image       string `json:"image"`
 }

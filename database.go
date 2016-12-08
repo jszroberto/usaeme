@@ -10,6 +10,19 @@ type DB struct {
 	log    zap.Logger
 }
 
+type AllDocsResult struct {
+	TotalRows int   `json:"total_rows"`
+	Offset    int   `json:"offset"`
+	Rows      []Row `json:"rows"`
+}
+
+type Row struct {
+	Word  Word                   `json:"doc"`
+	Id    string                 `json:"id"`
+	Key   string                 `json:"key"`
+	Value map[string]interface{} `json:"value"`
+}
+
 const (
 	DB_NAME = "usaeme"
 )
@@ -37,11 +50,35 @@ func (db *DB) IsAccessible() bool {
 }
 
 func (db *DB) GetWords() ([]Word, error) {
-	var words []Word
-	err := db.client.DB(DB_NAME).AllDocs(words, nil)
+	var result AllDocsResult
+	err := db.client.DB(DB_NAME).AllDocs(&result, couchdb.Options{"include_docs": true})
 	if err != nil {
 		return nil, err
 	}
-	db.log.Info("Get Words", zap.Int("size", len(words)))
+
+	db.log.Info("Get Words", zap.Int("size", len(result.Rows)))
+
+	var words []Word
+
+	for _, row := range result.Rows {
+		words = append(words, row.Word)
+	}
 	return words, nil
+}
+
+func (db *DB) GetWord(word string) (Word, error) {
+
+	var row Word
+	db.log.Info("Get Word", zap.String("name", word))
+
+	err := db.client.DB(DB_NAME).Get(word, &row, couchdb.Options{})
+	return row, err
+}
+
+func (db *DB) SetWord(word Word) error {
+	// id := uuid.New()
+
+	db.log.Info("Set Word", zap.String("name", word.Name))
+	_, err := db.client.DB(DB_NAME).Put(word.Name, word, "")
+	return err
 }
