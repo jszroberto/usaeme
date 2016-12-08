@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/fjl/go-couchdb"
 	"github.com/uber-go/zap"
+	"time"
 )
 
 type DB struct {
@@ -88,7 +89,7 @@ func (db *DB) GetWords() ([]Word, error) {
 		return nil, err
 	}
 	db.log.Info("Get Words", zap.Int("size", len(result.Rows)))
-	var words []Word
+	words := []Word{}
 
 	for _, row := range result.Rows {
 		words = append(words, row.Word)
@@ -105,6 +106,8 @@ func (db *DB) GetWord(word string) (Word, error) {
 
 func (db *DB) SetWord(word Word) error {
 	db.log.Info("Set Word", zap.String("name", word.Name))
+	word.CreatedAt = time.Now()
+	word.UpdatedAt = time.Now()
 	_, err := db.client.DB(DB_NAME).Put(word.Name, word, "")
 	return err
 }
