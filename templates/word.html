@@ -1,0 +1,28 @@
+{{ define "word" }}
+
+<div class="panel panel-default">
+  <div class="word-title panel-heading" role="tab" id="heading{{ .Name }}">
+    <h4 class="panel-title collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ .Name }}" aria-expanded="false" aria-controls="collapse{{ .Name }}">
+      <a >
+        <span class="badge" data-toggle="tooltip" data-placement="right" title="Last use 3 days ago">{{ .TimesUsed }}</span>
+				<p class=" text-center">
+          <span>{{ .Name }}</span>
+
+
+          <span class="text-success glyphicon glyphicon-thumbs-up pull-right" style="font-size: 1.8em;" data-toggle="tooltip" data-placement="left" title="Used today?"></span>
+
+          <span class="text-info glyphicon glyphicon-thumbs-down pull-right" style="font-size: 1.8em; padding-right: 0.4em;" data-toggle="tooltip" data-placement="left" title="Not really confident?"></span>
+
+        </p>
+
+      </a>
+    </h4>
+  </div>
+  <div id="collapse{{ .Name }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{ .Name }}">
+    <div class="panel-body">
+      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+    </div>
+  </div>
+</div>
+
+{{ end }}

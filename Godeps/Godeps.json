@@ -1,9 +1,43 @@
 {
-	"ImportPath": ".",
-	"GoVersion": "go1.5.4",
+	"ImportPath": "github.com/jszroberto/usaeme",
+	"GoVersion": "go1.6.1",
 	"GodepVersion": "v74",
-	"Packages": [
-		"./..."
-	],
-	"Deps": []
+	"Deps": [
+		{
+			"ImportPath": "github.com/cloudfoundry-community/go-cfenv",
+			"Comment": "v1.14.0-7-gc567d77",
+			"Rev": "c567d77dab8551bc4077e68e5a04415f1d74a911"
+		},
+		{
+			"ImportPath": "github.com/fjl/go-couchdb",
+			"Rev": "1f327c218d24c98ba4067e086a2787c1488ba558"
+		},
+		{
+			"ImportPath": "github.com/gorilla/context",
+			"Comment": "v1.1-7-g08b5f42",
+			"Rev": "08b5f424b9271eedf6f9f0ce86cb9396ed337a42"
+		},
+		{
+			"ImportPath": "github.com/gorilla/mux",
+			"Comment": "v1.1-27-g757bef9",
+			"Rev": "757bef944d0f21880861c2dd9c871ca543023cba"
+		},
+		{
+			"ImportPath": "github.com/mitchellh/mapstructure",
+			"Rev": "5a0325d7fafaac12dda6e7fb8bd222ec1b69875e"
+		},
+		{
+			"ImportPath": "github.com/uber-go/atomic",
+			"Comment": "v1.0.0-3-g9e99152",
+			"Rev": "9e99152552a6ce13fa3b2ce4a9c4fb117cca4506"
+		},
+		{
+			"ImportPath": "github.com/uber-go/zap",
+			"Rev": "35cd7966cc81adc0449c91b3f6b1939812be73aa"
+		},
+		{
+			"ImportPath": "gopkg.in/yaml.v2",
+			"Rev": "49c95bdc21843256fb6c4e0d370a05f24a0bf213"
+		}
+	]
 }

@@ -104,6 +104,17 @@ func (db *DB) GetWord(word string) (Word, error) {
 	return doc, err
 }
 
+func (db *DB) DeleteWord(word string) error {
+	db.log.Info("Get Word", zap.String("name", word))
+	rev, err := db.client.DB(DB_NAME).Rev(word)
+
+	if err != nil {
+		return err
+	}
+	_, err = db.client.DB(DB_NAME).Delete(word, rev)
+	return err
+}
+
 func (db *DB) SetWord(word Word) error {
 	db.log.Info("Set Word", zap.String("name", word.Name))
 	word.CreatedAt = time.Now()

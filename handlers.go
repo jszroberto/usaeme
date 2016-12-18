@@ -11,6 +11,7 @@ import (
 var index = template.Must(template.ParseFiles(
 	"templates/_base.html",
 	"templates/index.html",
+	"templates/word.html",
 ))
 
 func Index(w http.ResponseWriter, req *http.Request) {
@@ -95,6 +96,24 @@ func GetWord(w http.ResponseWriter, req *http.Request) {
 		json.NewEncoder(w).Encode(word)
 	}
 
+}
+
+func DeleteWord(w http.ResponseWriter, req *http.Request) {
+
+	log := NewLogger()
+
+	vars := mux.Vars(req)
+	wordID := vars["word"]
+
+	db, err := connectDB(log)
+	if err != nil {
+		log.Error("Can't reach database", zap.Error(err))
+	}
+	err = db.DeleteWord(wordID)
+	if err != nil {
+		log.Error("Can't delete word", zap.Error(err))
+		http.Error(w, "Not found", 404)
+	}
 }
 
 func SetWord(w http.ResponseWriter, req *http.Request) {
