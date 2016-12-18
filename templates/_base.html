@@ -43,7 +43,7 @@
 
       <ul class="nav navbar-nav">
           <li class="active"><a href="#" id="study_bt">Today's  <span class="badge">{{ len .Study }}</span><span class="sr-only">(current)</span></a></li>
-          <li><a id="learning_bt"href="#">Learning  <span class="badge">{{ len .Learning }}</span></a></li>
+          <li><a id="learning_bt"href="#">Queued  <span class="badge">{{ len .Learning }}</span></a></li>
       </ul>
 
 
@@ -102,7 +102,7 @@
     </div>
 
     <div id="learning">
-      <h3 class="text-center">Learning</h3>
+      <h3 class="text-center">Queued</h3>
       {{ template "content" .Learning }}
     </div>
     <div id="mastered">

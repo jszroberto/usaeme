@@ -49,12 +49,11 @@ func (db *DB) Ping() error {
 func (db *DB) IsAccessible() bool {
 	return db.Ping() == nil
 }
-func (db *DB) GetNexts(words []Word) []Word {
-
+func (db *DB) GetNexts(words []Word) ([]Word, []Word) {
 	nexts := make([]Word, 5)
-	copy(nexts, words)
-	return nexts
+	return words[:5], words[5:]
 }
+
 func (db *DB) GetLearning() ([]Word, error) {
 	words, err := db.GetWords()
 

@@ -31,15 +31,15 @@ func Index(w http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		log.Error("Can't get words", zap.Error(err))
 	}
-
+	nexts, queued := db.GetNexts(learning)
 	content := struct {
 		Learning []Word
 		Mastered []Word
 		Study    []Word
 	}{
-		learning,
+		queued,
 		mastered,
-		db.GetNexts(learning),
+		nexts,
 	}
 
 	index.Execute(w, content)
