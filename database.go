@@ -50,8 +50,10 @@ func (db *DB) IsAccessible() bool {
 	return db.Ping() == nil
 }
 func (db *DB) GetNexts(words []Word) ([]Word, []Word) {
-	nexts := make([]Word, 5)
-	return words[:5], words[5:]
+	if len(words) < 3 {
+		return words, []Word{}
+	}
+	return words[:3], words[3:]
 }
 
 func (db *DB) GetLearning() ([]Word, error) {
