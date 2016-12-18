@@ -15,9 +15,20 @@ a {
     padding: 2.8em;
 }
 
+#learning {
+    padding: 2.8em;
+}
+
+#mastered {
+    padding: 2.8em;
+}
+
 #navbar-logo {
     height: 188%;
     padding: 0;
     margin: -40%;
     margin-top: -25%;
+}
+.modal-body.input-group {
+    width: 100%;
 }

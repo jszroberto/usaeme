@@ -17,6 +17,8 @@
 
 <link rel="stylesheet" href="static/stylesheets/style.css">
 
+<script src="static/scripts/logic.js"></script>
+
 </head>
 <body>
 	<nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
@@ -40,14 +42,14 @@
     <div class="collapse navbar-collapse" id="navbar-main" aria-expanded="false">
 
       <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Today's  <span class="badge">4</span><span class="sr-only">(current)</span></a></li>
-          <li><a href="#">Learning  <span class="badge">4</span></a></li>
+          <li class="active"><a href="#" id="study_bt">Today's  <span class="badge">{{ len .Study }}</span><span class="sr-only">(current)</span></a></li>
+          <li><a id="learning_bt"href="#">Learning  <span class="badge">{{ len .Learning }}</span></a></li>
       </ul>
 
 
       <button type="button" class="btn btn-default navbar-btn  navbar-right" data-toggle="modal" data-target="#add-word-modal">Add New word    <span class="glyphicon glyphicon-plus"></span></button>
       <ul class="nav navbar-nav navbar-right">
-          <li><a href="#"> 8750 Words</a></li>
+          <li><a id="mastered_bt" href="#"> {{ len .Mastered }} Words</a></li>
       </ul>
 
 
@@ -93,11 +95,23 @@
   </div>
 
 
+  <div class="container contents" id="contents">
+    <div id="study">
+      <h3 class="text-center">Today's</h3>
+      {{ template "content" .Study }}
+    </div>
 
-  <div class="container" id="contents">
-
-    {{ template "content" . }}
+    <div id="learning">
+      <h3 class="text-center">Learning</h3>
+      {{ template "content" .Learning }}
+    </div>
+    <div id="mastered">
+      <h3 class="text-center">Mastered</h3>
+      {{ template "content" .Mastered }}
+    </div>
   </div>
+
+
 </body>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script>
